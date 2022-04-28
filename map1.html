@@ -90,15 +90,15 @@
 
             // when loading a geojson, there are two steps
             // add a source of the data and then add the layer out of the source
-            map.addSource('covid-count', {
+            map.addSource('count', {
                 type: 'geojson',
-                data: 'assets/covid-count.geojson'
+                data: 'assets/count.geojson'
             });
 
             map.addLayer({
                     'id': 'covid-count-layer',
                     'type': 'circle',
-                    'source': 'covid-count',
+                    'source': 'count',
                     'paint': {
                         // increase the radii of the circle as the zoom level and dbh value increases
                         'circle-radius': {
