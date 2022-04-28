@@ -80,7 +80,7 @@
             projection: {name: 'albers'}
         });
 
-        const lvl = [1000, 5000, 65000],
+        const  grades = [1000, 5000, 65000],
             colors = ['rgb(208,209,230)', 'rgb(103,169,207)', 'rgb(1,108,89)'],
             radii = [5, 15, 20];
 
@@ -106,24 +106,24 @@
                             'stops': [
                                 [{
                                     zoom: 3,
-                                    value: lvl[0]
+                                    value: grades[0]
                                 }, radii[0]],
                                 [{
                                     zoom: 3,
-                                    value: lvl[1]
+                                    value: grades[1]
                                 }, radii[1]],
                                 [{
                                     zoom: 3,
-                                    value: lvl[2]
+                                    value: grades[2]
                                 }, radii[2]]
                             ]
                         },
                         'circle-color': {
                             'property': 'cases',
                             'stops': [
-                                [lvl[0], colors[0]],
-                                [lvl[1], colors[1]],
-                                [lvl[2], colors[2]]
+                                [grades[0], colors[0]],
+                                [grades[1], colors[1]],
+                                [grades[2], colors[2]]
                             ]
                         },
                         'circle-stroke-color': 'white',
@@ -139,7 +139,7 @@
             map.on('click', 'covid-count-layer', (event) => {
                 new mapboxgl.Popup()
                     .setLngLat(event.features[0].geometry.coordinates)
-                    .setHTML(`<strong>Cases:</strong> ${event.features[0].properties.cases}`)
+                    .setHTML(`<strong>Cases Count:</strong> ${event.features[0].properties.cases}`)
                     .addTo(map);
             });
 
@@ -153,8 +153,8 @@
         var labels = ['<strong>Magnitude</strong>'],
             vbreak;
         //iterate through grades and create a scaled circle and label for each
-        for (var i = 0; i < lvl.length; i++) {
-            vbreak = lvl[i];
+        for (var i = 0; i < grades.length; i++) {
+            vbreak = grades[i];
             // you need to manually adjust the radius of each dot on the legend 
             // in order to make sure the legend can be properly referred to the dot on the map.
             dot_radii = 2 * radii[i];
