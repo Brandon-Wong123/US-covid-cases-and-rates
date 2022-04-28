@@ -76,7 +76,8 @@
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/light-v10',
             zoom: 3, // starting zoom
-            center: [-103, 44] // starting center
+            center: [-100, 44], // starting center
+            projection: {name: 'albers'}
         });
 
         const lvl = [1000, 5000, 65000],
@@ -104,15 +105,15 @@
                             'property': 'cases',
                             'stops': [
                                 [{
-                                    zoom: 5,
+                                    zoom: 3,
                                     value: lvl[0]
                                 }, radii[0]],
                                 [{
-                                    zoom: 5,
+                                    zoom: 3,
                                     value: lvl[1]
                                 }, radii[1]],
                                 [{
-                                    zoom: 5,
+                                    zoom: 3,
                                     value: lvl[2]
                                 }, radii[2]]
                             ]
