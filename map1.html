@@ -55,12 +55,35 @@
         .dot-label {
             position: absolute;
             top: 0;
-            right: 0;
+            right: 2;
             font-style: italic;
         }
 
         /* the text color of a hyper link */
         a {
+            color: black
+        }
+
+        #title {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 20px;
+            margin-left: 20px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 25pt;
+            color: black
+        }
+
+
+        #subtitle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-top: 70px;
+            margin-left: 190px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 15pt;
             color: black
         }
     </style>
@@ -69,14 +92,21 @@
 <body>
     <div id="map"></div>
     <div id="legend"></div>
+    <div id="title">
+        US Covid Rates
+    </div>
+    <div id="subtitle">
+        per county
+    </div>
+
     <script>
         mapboxgl.accessToken =
             'pk.eyJ1IjoiamFrb2J6aGFvIiwiYSI6ImNpcms2YWsyMzAwMmtmbG5icTFxZ3ZkdncifQ.P9MBej1xacybKcDN_jehvw';
         let map = new mapboxgl.Map({
             container: 'map', // container ID
             style: 'mapbox://styles/mapbox/light-v10',
-            zoom: 3, // starting zoom
-            center: [-100, 44], // starting center
+            zoom: 4, // starting zoom
+            center: [-100, 40], // starting center
             projection: {name: 'albers'}
         });
 
@@ -105,15 +135,15 @@
                             'property': 'cases',
                             'stops': [
                                 [{
-                                    zoom: 3,
+                                    zoom: 5,
                                     value: grades[0]
                                 }, radii[0]],
                                 [{
-                                    zoom: 3,
+                                    zoom: 5,
                                     value: grades[1]
                                 }, radii[1]],
                                 [{
-                                    zoom: 3,
+                                    zoom: 5,
                                     value: grades[2]
                                 }, radii[2]]
                             ]
@@ -150,7 +180,7 @@
         const legend = document.getElementById('legend');
 
         //set up legend grades and labels
-        var labels = ['<strong>Magnitude</strong>'],
+        var labels = ['<strong>Cases Count</strong>'],
             vbreak;
         //iterate through grades and create a scaled circle and label for each
         for (var i = 0; i < grades.length; i++) {
@@ -167,9 +197,10 @@
         }
         // add the data source
         const source =
-            '<p style="text-align: right; font-size:10pt">Source: <a href="https://earthquake.usgs.gov/earthquakes/">USGS</a></p>';
+            '<p style="text-align: right; font-size:10pt">Source: <a href="https://github.com/nytimes/covid-19-data/blob/43d32dde2f87bd4dafbb7d23f5d9e878124018b8/live/us-counties.csv">New York Times</a></p>';
         // combine all the html codes.
         legend.innerHTML = labels.join('') + source;
+
     </script>
 
 </body>
