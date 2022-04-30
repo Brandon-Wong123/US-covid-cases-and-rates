@@ -78,15 +78,19 @@
             width: 100%;
         }
 
+        a {
+            color: black
+        }
+
     </style>
 </head>
 
 <body>
     <div id="map"></div>
     <div class='map-overlay' id='features'>
-        <h2>US population density</h2>
+        <h2>2020 US Covid-19 Rates</h2>
         <div id='text-description'>
-            <p>Hover over a state!</p>
+            <p>Hover over a County!</p>
         </div>
     </div>
     <div class='map-overlay' id='legend'></div>
@@ -103,29 +107,23 @@
         });
 
         const layers = [
-                        '0-9',
-                        '10-19',
-                        '20-49',
-                        '50-99',
-                        '100-199',
-                        '200-499',
-                        '500-999',
-                        '1000 and more'
+                        '0-24',
+                        '25-49',
+                        '50-74',
+                        '75-99',
+                        '100 and more',
         ];
 
         const colors = [
-                        '#FFEDA070',
                         '#FED97670',
                         '#FEB24C70',
                         '#FD8D3C70',
                         '#FC4E2A70',
                         '#E31A1C70',
-                        '#BD002670',
-                        '#80002670'
         ];
 
         const legend = document.getElementById('legend');
-        legend.innerHTML = "<b>United States Covid Rates<br>(per 1,000 cases)</b><br><br>";
+        legend.innerHTML = "<b>Covid Rates<br>(per 1,000 people)</b><br><br>";
 
         async function geojsonFetch() { 
             let response = await fetch('assets/rates.geojson');
@@ -146,21 +144,15 @@
                             'fill-color': [
                                 'step',
                                 ['get', 'rates'],
-                                '#FFEDA0',   
-                                10,          // if rate < 10
                                 '#FED976',   
-                                20,          // if 10 <= rate < 20
+                                25,          // if rate < 25
                                 '#FEB24C',   
-                                50,          // if 20 <= rate < 50
+                                50,          // if 25 <= rate < 50
                                 '#FD8D3C',   
-                                100,         // if 50 <= rate < 100
+                                75,         // if 75 <= rate < 100
                                 '#FC4E2A',   
-                                200,         // if 100 <= rate < 200
+                                100,         // if 100 > 100
                                 '#E31A1C',   
-                                500,         // 200 <= rate < 500
-                                '#BD0026',  
-                                1000,        // 500 <= rate < 1000
-                                "#800026"    // use color if 1000 <= rate
                             ],
                             'fill-outline-color': '#BBBBBB',
                             'fill-opacity': 0.7,
@@ -189,8 +181,8 @@
                     layers: ['covid-rate-layer']
                 });
                 document.getElementById('text-description').innerHTML = state.length ?
-                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.rates}</strong> people per square mile</em></p>` :
-                    `<p>Hover over a state!</p>`;
+                    `<h3>${state[0].properties.name}</h3><p><strong><em>${state[0].properties.rates}</strong> cases per 1,000 people</em></p>` :
+                    `<p>Hover over a County!</p>`;
             });
         };
 
